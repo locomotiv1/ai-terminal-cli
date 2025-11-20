@@ -1,4 +1,5 @@
 import sys
+
 import pyperclip
 from google import genai
 
@@ -12,15 +13,19 @@ def readInput():
 def aiInit():
 
     client = genai.Client()
-    
-    aiCall = "You are a Linux command generator. Your only task is to translate the user's natural language request into the correct Linux command.\n" \
-             "Rules:\n" \
-             "1. Output ONLY the command.\n" \
-             "2. Do NOT use markdown formatting (no backticks).\n" \
-             "3. Do NOT include any explanations, notes, or extra text.\n" \
-             "4. If the user asks for a dangerous operation, output the command commented out with #.\n" \
-             "5. If the user types in a prompt that is unrelated to your scope of the project ask the user to redefine his prompt and try again \n" \
-             "User Request: {user_input} \n" \
+    current_os = sys.platform
+
+    aiCall = f"""You are a Command Line Interface generator.
+    Target Operating System: {current_os}
+    Your task is to translate the user's natural language request into the correct command for this OS.
+
+    Rules:
+    1. Output ONLY the command.
+    2. Do NOT use markdown formatting (no backticks).
+    3. Do NOT include any explanations, notes, or extra text.
+    4. If the user asks for a dangerous operation, output the command commented out with #.
+    5. If the request is unrelated to terminal commands, ask the user to redefine his prompt and try again.
+    """ 
     
     text = readInput()
     if text == '':
