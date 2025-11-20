@@ -18,6 +18,7 @@ def aiInit():
     done = False
     client = genai.Client()
     current_os = platform.system()
+
     if current_os == "Linux":
         os_info = platform.freedesktop_os_release()
         os_name = os_info.get('NAME')
@@ -48,7 +49,6 @@ def aiInit():
             sys.stdout.write('\rloading ' + c)
             sys.stdout.flush()
             time.sleep(0.1)
-        #sys.stdout.write('\rDone!     ')
 
     t = threading.Thread(target=animate)
     t.start()
@@ -76,7 +76,6 @@ def aiInit():
             break
         else:
             print("Select [y/N] \n")
-
 
 if __name__ == '__main__':
     aiInit()
